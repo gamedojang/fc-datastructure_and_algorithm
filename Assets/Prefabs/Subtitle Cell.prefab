@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3079982570868526477}
   - component: {fileID: 1433062026876106860}
   - component: {fileID: 5022974776225526508}
-  - component: {fileID: 6179529805170794144}
+  - component: {fileID: 8948043033119967483}
   - component: {fileID: 543227483208030987}
   - component: {fileID: 8451522951051958392}
   m_Layer: 5
@@ -40,7 +40,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 60}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &1433062026876106860
 CanvasRenderer:
@@ -80,7 +80,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6179529805170794144
+--- !u!114 &8948043033119967483
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,10 +89,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3821781631801641178}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 765bc694d6322734582dbb9ad6fd29e6, type: 3}
+  m_Script: {fileID: 11500000, guid: f2f05a6ca50606641a56096a72a1d82c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Text: {fileID: 8445070694966189084}
+  Title: {fileID: 8445070694966189084}
+  SubTitle: {fileID: 3634001143567901044}
 --- !u!114 &543227483208030987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,7 +146,7 @@ GameObject:
   - component: {fileID: 7867521893470970950}
   - component: {fileID: 8445070694966189084}
   m_Layer: 5
-  m_Name: Main Text (TMP)
+  m_Name: Title Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
