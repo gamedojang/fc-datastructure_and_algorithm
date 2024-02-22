@@ -6,13 +6,14 @@ using UnityEngine.UIElements;
 
 namespace LinkedList
 {
-    public class LinkedListController : MonoBehaviour
+    public class LinkedListController : SceneController
     {
         [SerializeField] private GameObject cellPrefab;
         [SerializeField] private Transform scrollViewParent;
         [SerializeField] private Transform panelParent;
         [SerializeField] private GameObject addPanel;
-        [SerializeField] private GameObject scrollView;
+        [SerializeField] private GameObject detailPanel;
+        [SerializeField] private GameObject confirmPanel;
 
         private List<GameObject> cellObjectList = new List<GameObject>();
         
@@ -35,6 +36,11 @@ namespace LinkedList
             _personLinkedList.AddFirst(person);
         }
 
+        public void Remove(Person person)
+        {
+            _personLinkedList.Remove(person);
+        }
+
         public void ShowAddPanel()
         {
             var addPanelObject = Instantiate(addPanel, panelParent);
@@ -51,15 +57,40 @@ namespace LinkedList
             {
                 Destroy(cellObject);
             }
-            
+
+            int index = 0;
             foreach (var person in _personLinkedList)
             {
                 GameObject cell = Instantiate(cellPrefab, scrollViewParent);
                 cellObjectList.Add(cell);
 
-                cell.GetComponent<SubtitleCellController>().Title.text = person.Name;
-                cell.GetComponent<SubtitleCellController>().SubTitle.text = person.Job;
+                SubtitleCellController subtitleCellController = cell.GetComponent<SubtitleCellController>();
+
+                subtitleCellController.Title.text = person.Name;
+                subtitleCellController.SubTitle.text = person.Job;
+                subtitleCellController.Index = index++;
+
+                subtitleCellController.openDetailPanelDelegate = i =>
+                {
+                    var detailPanelObject = Instantiate(detailPanel, panelParent);
+                    var detailPanelController = detailPanelObject.GetComponent<DetailPanelController>();
+                    detailPanelController.SetData(person, this);
+                    detailPanelController.deletePersonDelegate = target =>
+                    {
+                        Remove(target);
+                        ReloadData();
+                    };
+                };
             }
         }
+
+        public override void OpenConfirmPopup(string message, ConfirmPopupController.ConfirmPopupDelegate confirmPopupDelegate)
+        {
+            var confimPanelObject = Instantiate(confirmPanel, panelParent);
+            var confirmPanelController = confimPanelObject.GetComponent<ConfirmPopupController>();
+            confirmPanelController.SetMessage(message);
+            confirmPanelController.confirmPopupDelegate = confirmPopupDelegate;
+        }
+
     }
 }
