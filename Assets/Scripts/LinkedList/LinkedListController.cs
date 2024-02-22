@@ -23,7 +23,16 @@ namespace LinkedList
             new Person("김민기", 23, Person.GenderType.Male, "아티스트"),
             new Person("최민희", 23, Person.GenderType.Female, "아티스트"),
             new Person("박수영", 23, Person.GenderType.Female, "프로그래머"),
-            new Person("김민수", 23, Person.GenderType.Male, "기획자"),
+            new Person("김민수", 23, Person.GenderType.Male, "기획자")
+        });
+
+        private GYLinkedList<Person>_personLinkedList2 = new GYLinkedList<Person>(new Person[]
+        {
+            new Person("홍길동", 23, Person.GenderType.Male, "프로그래머"),
+            new Person("김민기", 23, Person.GenderType.Male, "아티스트"),
+            new Person("최민희", 23, Person.GenderType.Female, "아티스트"),
+            new Person("박수영", 23, Person.GenderType.Female, "프로그래머"),
+            new Person("김민수", 23, Person.GenderType.Male, "기획자")    
         });
 
         private void Start()
@@ -33,12 +42,12 @@ namespace LinkedList
 
         public void Add(Person person)
         {
-            _personLinkedList.AddFirst(person);
+            _personLinkedList2.AddFirst(person);
         }
 
         public void Remove(Person person)
         {
-            _personLinkedList.Remove(person);
+            _personLinkedList2.Remove(person);
         }
 
         public void ShowAddPanel()
@@ -59,7 +68,7 @@ namespace LinkedList
             }
 
             int index = 0;
-            foreach (var person in _personLinkedList)
+            foreach (var person in _personLinkedList2)
             {
                 GameObject cell = Instantiate(cellPrefab, scrollViewParent);
                 cellObjectList.Add(cell);
@@ -67,6 +76,7 @@ namespace LinkedList
                 SubtitleCellController subtitleCellController = cell.GetComponent<SubtitleCellController>();
 
                 subtitleCellController.Title.text = person.Name;
+                
                 subtitleCellController.SubTitle.text = person.Job;
                 subtitleCellController.Index = index++;
 
@@ -91,6 +101,5 @@ namespace LinkedList
             confirmPanelController.SetMessage(message);
             confirmPanelController.confirmPopupDelegate = confirmPopupDelegate;
         }
-
     }
 }
