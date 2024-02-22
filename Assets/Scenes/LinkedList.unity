@@ -1134,6 +1134,7 @@ MonoBehaviour:
   panelParent: {fileID: 69220724}
   addPanel: {fileID: 1391166306786231486, guid: 82d6322d2d31863419db575d5a4d0470, type: 3}
   detailPanel: {fileID: 1391166306786231486, guid: 78c672efc7742d0489246d1c8e85b65b, type: 3}
+  confirmPanel: {fileID: 5575942644012463142, guid: b459aec30e59ea64f9241de2ff8a677f, type: 3}
 --- !u!1 &888477376
 GameObject:
   m_ObjectHideFlags: 0
