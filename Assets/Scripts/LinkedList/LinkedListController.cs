@@ -68,7 +68,7 @@ namespace LinkedList
             }
 
             int index = 0;
-            foreach (var person in _personLinkedList2)
+            foreach (Person person in _personLinkedList2)
             {
                 GameObject cell = Instantiate(cellPrefab, scrollViewParent);
                 cellObjectList.Add(cell);

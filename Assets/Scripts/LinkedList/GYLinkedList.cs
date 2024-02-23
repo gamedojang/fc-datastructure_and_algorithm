@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.MemoryProfiler;
 
 public class GYLinkedListNode<T> where T : IComparable<T>
 {
@@ -15,94 +16,97 @@ public class GYLinkedListNode<T> where T : IComparable<T>
     }
 }
 
-public class GYLinkedList<T> : IEnumerable where T : IComparable<T>, IEnumerable<T>
+public class GYLinkedList<T>: IEnumerable, IEnumerator where T : class, IComparable<T>
 {
     public GYLinkedListNode<T> Head { get; set; }
     public GYLinkedListNode<T> Last { get; set; }
-    public GYLinkedListNode<T> Current { get; set; }
+    
     public int Count { get; set; }
     
     public GYLinkedList(T[] data)
     {
         var node = new GYLinkedListNode<T>(data[0]);
-        Head = node;
+        Head = new GYLinkedListNode<T>(null);
+        Head.NextNode = node;
+        node.PreviousNode = Head;
+        
+        Current = Head;
 
         for (int i = 1; i < data.Length; i++)
         {
             node.NextNode = new GYLinkedListNode<T>(data[i]);
+            node.NextNode.PreviousNode = node;
             node = node.NextNode;
         }
 
-        Last = node;
+        Last = new GYLinkedListNode<T>(null);
+        Last.PreviousNode = node;
+        node.NextNode = Last;
     }
 
     public void AddFirst(T value)
     {
         var node = new GYLinkedListNode<T>(value);
-        node.NextNode = Head;
-        Head.PreviousNode = node;
+        node.NextNode = Head.NextNode;
+        node.NextNode.PreviousNode = node;
+        Head.NextNode = node;
+        node.PreviousNode = Head;
     }
 
     public void AddLast(T value)
     {
         var node = new GYLinkedListNode<T>(value);
-        node.PreviousNode = Last;
-        Last.NextNode = node;
+        node.PreviousNode = Last.PreviousNode;
+        node.PreviousNode.NextNode = node;
+        Last.PreviousNode = node;
+        node.NextNode = Last;
     }
 
     public void Remove(T value)
     {
-        var node = Head;
-        while (node != null)
+        var node = Head.NextNode;
+        while (node != Last)
         {
             if (node.Value.CompareTo(value) == 0)
             {
                 node.PreviousNode.NextNode = node.NextNode;
                 node.NextNode.PreviousNode = node.PreviousNode;
+                return;
             }
-        }
-    }
 
-    public IEnumerator GetEnumerator()
-    {
-        return new GYLinkedListNodeEnum()
+            node = node.NextNode;
+        }
     }
     
-    public class GYLinkedListNodeEnum : IEnumerator
+    public IEnumerator GetEnumerator()
     {
-        public GYLinkedListNode<T>[] _nodes;
-        
-        private int position = -1;
-        
-        public GYLinkedListNodeEnum(GYLinkedListNode<T>[] nodes)
+        return this;
+    }
+    
+    public bool MoveNext()
+    {
+        if (Current.NextNode.Value != null)
         {
-            _nodes = nodes;
+            Current = Current.NextNode;
+            return true;
         }
-        
-        public bool MoveNext()
+        else
         {
-            position++;
-            return (position < _nodes.Length);
-        }
-
-        public void Reset()
-        {
-            position = -1;
-        }
-
-        public object Current
-        {
-            get
-            {
-                try
-                {
-                    return _nodes[position];
-                }
-                catch (IndexOutOfRangeException)
-                {
-                    throw new InvalidOperationException();
-                }
-            }
+            Reset();
+            return false;
         }
     }
+
+    public void Reset()
+    {
+        Current = Head;
+    }
+
+    public GYLinkedListNode<T> Current { get; set; }
+
+    object IEnumerator.Current
+    {
+        get { return Current.Value; }
+    }
 }
+
