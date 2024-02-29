@@ -809,7 +809,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 255065460}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1137381239}
+        m_TargetAssemblyTypeName: CalculatorController, Assembly-CSharp
+        m_MethodName: OnClickButton
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: .
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &255065460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -934,13 +946,13 @@ MonoBehaviour:
       - m_Target: {fileID: 1137381239}
         m_TargetAssemblyTypeName: CalculatorController, Assembly-CSharp
         m_MethodName: OnClickButton
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: 0
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &309244416
@@ -1067,13 +1079,13 @@ MonoBehaviour:
       - m_Target: {fileID: 1137381239}
         m_TargetAssemblyTypeName: CalculatorController, Assembly-CSharp
         m_MethodName: OnClickButton
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: 1
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &325612194
@@ -1200,13 +1212,13 @@ MonoBehaviour:
       - m_Target: {fileID: 1137381239}
         m_TargetAssemblyTypeName: CalculatorController, Assembly-CSharp
         m_MethodName: OnClickButton
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 3
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: 3
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &337343597
@@ -1463,7 +1475,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 391041716}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1137381239}
+        m_TargetAssemblyTypeName: CalculatorController, Assembly-CSharp
+        m_MethodName: OnClickButton
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 5
+          m_FloatArgument: 0
+          m_StringArgument: 5
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &391041716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1718,7 +1742,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 612464441}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1137381239}
+        m_TargetAssemblyTypeName: CalculatorController, Assembly-CSharp
+        m_MethodName: OnClickButton
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 4
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &612464441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1840,16 +1876,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 1137381239}
+        m_TargetAssemblyTypeName: CalculatorController, Assembly-CSharp
+        m_MethodName: OnClickButton
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 17
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: ac
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &697741256
@@ -2106,7 +2142,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 808165647}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1137381239}
+        m_TargetAssemblyTypeName: CalculatorController, Assembly-CSharp
+        m_MethodName: OnClickButton
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 6
+          m_FloatArgument: 0
+          m_StringArgument: 6
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &808165647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2227,7 +2275,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 813832007}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1137381239}
+        m_TargetAssemblyTypeName: CalculatorController, Assembly-CSharp
+        m_MethodName: OnClickButton
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 16
+          m_FloatArgument: 0
+          m_StringArgument: =
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &813832007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2815,13 +2875,13 @@ MonoBehaviour:
       - m_Target: {fileID: 1137381239}
         m_TargetAssemblyTypeName: CalculatorController, Assembly-CSharp
         m_MethodName: OnClickButton
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 2
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: 2
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1099620215
@@ -2944,7 +3004,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1125188447}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1137381239}
+        m_TargetAssemblyTypeName: CalculatorController, Assembly-CSharp
+        m_MethodName: OnClickButton
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 12
+          m_FloatArgument: 0
+          m_StringArgument: '-'
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1125188447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3244,7 +3316,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1192667025}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1137381239}
+        m_TargetAssemblyTypeName: CalculatorController, Assembly-CSharp
+        m_MethodName: OnClickButton
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 8
+          m_FloatArgument: 0
+          m_StringArgument: 8
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1192667025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3499,7 +3583,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1297078009}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1137381239}
+        m_TargetAssemblyTypeName: CalculatorController, Assembly-CSharp
+        m_MethodName: OnClickButton
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 15
+          m_FloatArgument: 0
+          m_StringArgument: '%'
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1297078009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3846,7 +3942,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1471407371}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1137381239}
+        m_TargetAssemblyTypeName: CalculatorController, Assembly-CSharp
+        m_MethodName: OnClickButton
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 7
+          m_FloatArgument: 0
+          m_StringArgument: 7
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1471407371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4503,7 +4611,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1583584241}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1137381239}
+        m_TargetAssemblyTypeName: CalculatorController, Assembly-CSharp
+        m_MethodName: OnClickButton
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 14
+          m_FloatArgument: 0
+          m_StringArgument: /
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1583584241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5129,7 +5249,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1754544305}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1137381239}
+        m_TargetAssemblyTypeName: CalculatorController, Assembly-CSharp
+        m_MethodName: OnClickButton
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 13
+          m_FloatArgument: 0
+          m_StringArgument: '*'
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1754544305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5344,7 +5476,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1914692645}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1137381239}
+        m_TargetAssemblyTypeName: CalculatorController, Assembly-CSharp
+        m_MethodName: OnClickButton
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 9
+          m_FloatArgument: 0
+          m_StringArgument: 9
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1914692645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5599,7 +5743,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1948931139}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1137381239}
+        m_TargetAssemblyTypeName: CalculatorController, Assembly-CSharp
+        m_MethodName: OnClickButton
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 11
+          m_FloatArgument: 0
+          m_StringArgument: +
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1948931139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5720,7 +5876,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2019843669}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1137381239}
+        m_TargetAssemblyTypeName: CalculatorController, Assembly-CSharp
+        m_MethodName: OnClickButton
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 18
+          m_FloatArgument: 0
+          m_StringArgument: ce
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2019843669
 MonoBehaviour:
   m_ObjectHideFlags: 0
