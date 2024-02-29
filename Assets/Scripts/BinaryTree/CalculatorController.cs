@@ -24,10 +24,16 @@ public class CalculatorController : MonoBehaviour
                 lcdText.text += buttonIndex.ToString();
                 break;
             case 10:
+                // AC
+
                 break;
             case 11:
+                // CE
+
                 break;
             case 12:
+                // %
+                
                 break;
             case 13:
                 break;
