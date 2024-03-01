@@ -9,7 +9,7 @@ public class CalculatorController : MonoBehaviour
 
     private List<string> val = new List<string>();
     private Stack<string> opr = new Stack<string>();
-    private string inputValue;
+    private string inputValue = "";
 
     private int GetOprPriority(string opr)
     {
@@ -90,7 +90,8 @@ public class CalculatorController : MonoBehaviour
             case "7":
             case "8":
             case "9":
-            case "10":
+            case ".":
+                if (inputValue.IndexOf('.') > 0 && buttonValue == ".") break; 
                 inputValue += buttonValue;
                 lcdText.text += buttonValue;
                 break;
@@ -99,6 +100,8 @@ public class CalculatorController : MonoBehaviour
             case "*":
             case "/":
             case "%":
+                if (inputValue == "") break;
+                
                 val.Add(inputValue);
                 inputValue = "";
                 lcdText.text += buttonValue;
@@ -119,7 +122,6 @@ public class CalculatorController : MonoBehaviour
                         {
                             val.Add(opr.Pop());
                         }
-                        
                         opr.Push(buttonValue);
                     }  
                 }
@@ -129,6 +131,8 @@ public class CalculatorController : MonoBehaviour
                 }
                 break;
             case "=":
+                if (inputValue == "") break;
+                
                 val.Add(inputValue);
                 inputValue = "";
                 
@@ -148,8 +152,10 @@ public class CalculatorController : MonoBehaviour
                 Debug.Log(result);
                 break;
             case "ac":
-                break;
-            case "ce":
+                val.Clear();
+                opr = new Stack<string>();
+                inputValue = "";
+                lcdText.text = "";
                 break;
         }
     }
