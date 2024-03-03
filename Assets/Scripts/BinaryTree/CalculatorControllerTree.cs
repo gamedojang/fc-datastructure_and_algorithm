@@ -1,15 +1,15 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class CalculatorControllerWithTree : MonoBehaviour
+public class CalculatorControllerTree : MonoBehaviour
 {
     [SerializeField] private TMP_Text lcdText;
 
-    private Stack<TreeNode<string>> treeStack = new Stack<TreeNode<string>>();
+    private Stack<BinaryTreeNode> expression = new Stack<BinaryTreeNode>();
 
+    private Stack<BinaryTreeNode> operatorList = new Stack<BinaryTreeNode>();
+    
     private string inputValue = "";
 
     private int GetOprPriority(string opr)
@@ -25,6 +25,30 @@ public class CalculatorControllerWithTree : MonoBehaviour
             default:
                 return -1;
         }
+    }
+
+    private float CalculateTree(BinaryTreeNode treeNode)
+    {
+        if (treeNode.LeftNode == null && treeNode.RightNode == null)
+        {
+            return float.Parse(treeNode.Value);
+        }
+
+        switch (treeNode.Value)
+        {
+            case "+":
+                return CalculateTree(treeNode.LeftNode) + CalculateTree(treeNode.RightNode);
+            case "-":
+                return CalculateTree(treeNode.LeftNode) - CalculateTree(treeNode.RightNode);
+            case "*":
+                return CalculateTree(treeNode.LeftNode) * CalculateTree(treeNode.RightNode);
+            case "/":
+                return CalculateTree(treeNode.LeftNode) / CalculateTree(treeNode.RightNode);
+            case "%":
+                return CalculateTree(treeNode.LeftNode) % CalculateTree(treeNode.RightNode);
+        }
+
+        return 0;
     }
 
     private float Calculate(List<string> list)
@@ -103,83 +127,67 @@ public class CalculatorControllerWithTree : MonoBehaviour
             case "%":
                 if (inputValue == "") break;
                 
-                val.Add(inputValue);
-
-                // 피연산자 node push
-                TreeNode<string> node = new TreeNode<string>(inputValue);
-                treeStack.Push(node);
-                
-                // 연산자 node push
-                var lastNode = treeStack.Peek();
-
-                if (lastNode.Value == "+" || lastNode.Value == "-" || lastNode.Value == "*" ||
-                    lastNode.Value == "/" || lastNode.Value == "%")
-                {
-                    
-                }
-                    
-
-                treeStack.Push(node);
-                
-                // 연산자 node 저장
-                // 연산자 node는 treeStack에 Push 할 때 마지막 node를 pop 해서 우선순위를 파악 후
-                // 자신보다 우선 순위가 낮으면 해당
-                
-                
-                    
-                 
-                
+                BinaryTreeNode node = new BinaryTreeNode(inputValue);
+                expression.Push(node);
                 inputValue = "";
                 lcdText.text += buttonValue;
                 
                 // 연산자 처리
-                if (opr.Count > 0)
+                if (operatorList.Count > 0)
                 {
-                    var lastOpr = opr.Peek();
+                    var lastOprator = operatorList.Peek();
                     
                     // 새로운 연산자가 우선 순위가 높으면
-                    if (GetOprPriority(lastOpr) <= GetOprPriority(buttonValue))
+                    if (GetOprPriority(lastOprator.Value) <= GetOprPriority(buttonValue))
                     {
-                        opr.Push(buttonValue);
+                        operatorList.Push(new BinaryTreeNode(buttonValue));
                     }
                     else
                     {
-                        while (opr.Count > 0)
+                        while (operatorList.Count > 0)
                         {
-                            val.Add(opr.Pop());
+                            var lastOperatorNode = operatorList.Pop();
+
+                            lastOperatorNode.RightNode = expression.Pop();
+                            lastOperatorNode.LeftNode = expression.Pop();
+
+                            expression.Push(lastOperatorNode);
                         }
-                        opr.Push(buttonValue);
+                        operatorList.Push(new BinaryTreeNode(buttonValue));
                     }  
                 }
                 else
                 {
-                    opr.Push(buttonValue);
+                    operatorList.Push(new BinaryTreeNode(buttonValue));
                 }
                 break;
             case "=":
                 if (inputValue == "") break;
                 
-                val.Add(inputValue);
+                expression.Push(new BinaryTreeNode(inputValue));
                 inputValue = "";
                 
-                while (opr.Count > 0)
+                while (operatorList.Count > 0)
                 {
-                    val.Add(opr.Pop());
+                    var lastOperatorNode = operatorList.Pop();
+
+                    lastOperatorNode.RightNode = expression.Pop();
+                    lastOperatorNode.LeftNode = expression.Pop();
+
+                    expression.Push(lastOperatorNode);
                 }
-                
-                float result = Calculate(val);
-                
+
+                float result = CalculateTree(expression.Pop());
+                                
                 var resultStr = result.ToString();
                 lcdText.text = resultStr;
 
-                val.Clear();
+                expression.Clear();
                 inputValue = resultStr;
-                
-                Debug.Log(result);
                 break;
             case "ac":
-                val.Clear();
-                opr = new Stack<string>();
+                expression.Clear();
+                operatorList = new Stack<BinaryTreeNode>();
                 inputValue = "";
                 lcdText.text = "";
                 break;
