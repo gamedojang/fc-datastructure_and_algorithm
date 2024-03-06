@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,7 +14,7 @@ namespace AStar
         private float _moveSpeed = 5f;
 
         // 셀의 크기
-        private float cellSize = 1;
+        private int cellSize = 1;
         private int numOfRows = 10;
         private int numOfColumns = 10;
 
@@ -61,7 +62,7 @@ namespace AStar
 
         void Update()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonUp(0))
             {
                 Debug.Log("### Input.GetMouseButtonDown(0)");
                 
@@ -81,7 +82,8 @@ namespace AStar
                         // Move the player towards the target position
                         if (_player != null)
                         {
-                            _player.transform.position = Vector3.MoveTowards(_player.transform.position, _targetPosition, _moveSpeed * Time.deltaTime);
+                            // 기존 Nodes의 정보들 제거
+                            ClearNodes();
 
                             int nodeIndex, nodeRowIndex, nodeColumnIndex;
                             nodeIndex = GetNodeIndex(_player.transform.position);
@@ -120,6 +122,17 @@ namespace AStar
                         Debug.Log("### pathList.Pop() : " + popNode.position);
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void ClearNodes()
+        {
+            foreach (Node node in nodes)
+            {
+                node.Clear();
             }
         }
 
@@ -256,8 +269,10 @@ namespace AStar
                 return -1;
             }
 
-            int columnIndex = (int)(position.x / cellSize);
-            int rowIndex = (int)(position.z / cellSize);
+            int test = (int)Math.Round(position.x);
+
+            int columnIndex = (int)Mathf.Round(position.x) / cellSize;
+            int rowIndex = (int)Math.Round(position.z) / cellSize;
 
             return (rowIndex * numOfColumns + columnIndex);
         }

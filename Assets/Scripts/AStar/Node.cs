@@ -35,6 +35,13 @@ namespace AStar
             this.index = index;
         }
 
+        public void Clear()
+        {
+            this.hScore = 0f;
+            this.gScore = 0f;
+            this.parent = null;
+        }
+
         public int CompareTo(object obj)
         {
             Node node = (Node)obj;
