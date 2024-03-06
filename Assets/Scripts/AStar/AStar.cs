@@ -8,17 +8,21 @@ namespace AStar
     {
         private static SortingQueue<Node> closedQueue, openQueue;
 
+        /// <summary>
+        /// A* 알고리즘을 이용하여 시작 노드에서 목표 노드까지의 경로를 찾는다.
+        /// </summary>
+        /// <param name="startNode"></param>
+        /// <param name="endNode"></param>
+        /// <returns></returns>
         public static Stack<Node> FindPath(Node startNode, Node endNode)
         {
-            Debug.Log("### FindPath");
-
-            int findCount = 0;
-
             // 시작 노드를 오픈 큐에 추가
             openQueue = new SortingQueue<Node>();
             openQueue.Enqueue(startNode);
 
+            // 시작 노드의 경우 gScore는 0으로 설정
             startNode.gScore = 0f;
+            // 시작 노드의 hScore는 목표 노드까지의 거리로 설정
             startNode.hScore = GetPostionScore(startNode, endNode);
 
             // 닫힌 큐 초기화
@@ -26,14 +30,14 @@ namespace AStar
 
             Node node = null;
 
+            // 가야할 목적지가 남아있는 동안 반복
             while (openQueue.Count != 0)
             {
                 node = openQueue.Dequeue();
 
-                // 목표 노드를 찾았을 경우
+                // 목표 노드를 찾았을 경우 함수 종료
                 if (node == endNode)
                 {
-                    Debug.Log("Find: " + findCount);
                     return GetReverseResult(node);
                 }
 
@@ -67,7 +71,6 @@ namespace AStar
                             availableNode.parent = node;
 
                             openQueue.Enqueue(availableNode);
-                            findCount++;
                         }
                     }
                 }
@@ -76,7 +79,6 @@ namespace AStar
 
             if (node == endNode)
             {
-                Debug.Log("Find: " + findCount);
                 return GetReverseResult(node);
             }
 
@@ -97,9 +99,9 @@ namespace AStar
 
         private static float GetPostionScore(Node currentNode, Node endNode)
         {
+            // (Vector3 - Vector3).magnitude를 이용하여 두 노드 사이의 거리를 계산
             Vector3 resultValue = currentNode.position - endNode.position;
             return resultValue.magnitude;
         }
     }
-
 }

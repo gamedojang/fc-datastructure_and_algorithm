@@ -7,15 +7,18 @@ namespace AStar
 {
     public class AStartController : MonoBehaviour
     {
+        // 바닥
         [SerializeField] private GameObject _plane;
+        // 플레이어
         [SerializeField] private GameObject _player;
 
-        private Vector3 _targetPosition;
         private float _moveSpeed = 5f;
 
         // 셀의 크기
         private int cellSize = 1;
+        // 바닥 셀의 높이
         private int numOfRows = 10;
+        // 바닥 셀의 너비
         private int numOfColumns = 10;
 
         // 경로 저장
@@ -63,9 +66,7 @@ namespace AStar
         void Update()
         {
             if (Input.GetMouseButtonUp(0))
-            {
-                Debug.Log("### Input.GetMouseButtonDown(0)");
-                
+            {                
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
 
@@ -73,11 +74,8 @@ namespace AStar
                 {
                     if (hit.collider.gameObject.tag == "plane")
                     {
-                        Vector3 position = hit.point;
-                        position = new Vector3(Mathf.Floor(position.x), position.y, Mathf.Floor(position.z)); // Round down the position values
-                        Debug.Log("Clicked position: " + position);
-
-                        _targetPosition = position;
+                        Vector3 targetPosition = hit.point;
+                        targetPosition = new Vector3(Mathf.Floor(targetPosition.x), targetPosition.y, Mathf.Floor(targetPosition.z)); // Round down the position values
 
                         // Move the player towards the target position
                         if (_player != null)
@@ -92,7 +90,7 @@ namespace AStar
 
                             Node startNode = nodes[nodeRowIndex, nodeColumnIndex];
 
-                            nodeIndex = GetNodeIndex(_targetPosition);
+                            nodeIndex = GetNodeIndex(targetPosition);
                             nodeRowIndex = GetRowIndex(nodeIndex);
                             nodeColumnIndex = GetColumnIndex(nodeIndex);
 
@@ -109,14 +107,14 @@ namespace AStar
             if (pathList != null && pathList.Count > 0)
             {
                 Node nextNode = pathList.Peek();
-                _targetPosition = nextNode.position;
+                Vector3 targetPosition = nextNode.position;
 
                 // Move the player towards the target position
                 if (_player != null)
                 {
-                    _player.transform.position = Vector3.MoveTowards(_player.transform.position, _targetPosition, _moveSpeed * Time.deltaTime);
+                    _player.transform.position = Vector3.MoveTowards(_player.transform.position, targetPosition, _moveSpeed * Time.deltaTime);
 
-                    if (Vector3.Distance(_player.transform.position, _targetPosition) < 0.001f)
+                    if (Vector3.Distance(_player.transform.position, targetPosition) < 0.001f)
                     {
                         var popNode = pathList.Pop();
                         Debug.Log("### pathList.Pop() : " + popNode.position);
@@ -228,10 +226,17 @@ namespace AStar
             return false;
         }
 
+        /// <summary>
+        /// 주어진 위치가 유효한지 확인하는 함수
+        /// 즉, x 좌표가 0~9, z 좌표가 0~9 사이에 있는지 확인 
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
         private bool IsAvailablePosition(Vector3 position)
         {
             float availableWidht = numOfColumns * cellSize;
             float availableHeight = numOfRows * cellSize;
+
             if (position.x >= origin.x && position.x <= origin.x + availableWidht &&
                 position.z >= origin.z && position.z <= origin.z + availableHeight)
             {
@@ -262,14 +267,19 @@ namespace AStar
             return new Vector3(xPosition, 0f, zPosition);
         }
 
+        /// <summary>
+        /// 주어진 위치의 Node index를 반환하는 함수
+        /// 예를 들어 x가 3, z가 5인 위치의 Node index는 53이다.
+        /// 5 * 10 + 3 = 53
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
         private int GetNodeIndex(Vector3 position)
         {
             if (!IsAvailablePosition(position))
             {
                 return -1;
             }
-
-            int test = (int)Math.Round(position.x);
 
             int columnIndex = (int)Mathf.Round(position.x) / cellSize;
             int rowIndex = (int)Math.Round(position.z) / cellSize;
