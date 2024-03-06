@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 
 namespace AStar
@@ -28,7 +29,7 @@ namespace AStar
         private GameObject[] obstacles;
 
         // 시작 지점 위치
-        private Vector3 origin = new Vector3();
+        private Vector3 origin = Vector3.zero;
 
         // 목표 지점 위치
         private Transform startTransform, endTransform;
@@ -83,22 +84,14 @@ namespace AStar
                             // 기존 Nodes의 정보들 제거
                             ClearNodes();
 
-                            int nodeIndex, nodeRowIndex, nodeColumnIndex;
-                            nodeIndex = GetNodeIndex(_player.transform.position);
-                            nodeRowIndex = GetRowIndex(nodeIndex);
-                            nodeColumnIndex = GetColumnIndex(nodeIndex);
+                            (int playerRow, int playerCol) = GetNodeIndex(_player.transform.position);
+                            Node startNode = nodes[playerRow, playerCol];
 
-                            Node startNode = nodes[nodeRowIndex, nodeColumnIndex];
-
-                            nodeIndex = GetNodeIndex(targetPosition);
-                            nodeRowIndex = GetRowIndex(nodeIndex);
-                            nodeColumnIndex = GetColumnIndex(nodeIndex);
-
-                            Node endNode = nodes[nodeRowIndex, nodeColumnIndex];
+                            (int targetRow, int targetCol) = GetNodeIndex(targetPosition);
+                            Node endNode = nodes[targetRow, targetCol];
 
                             // 경로 탐색
                             pathList = AStar.FindPath(startNode, endNode);
-                            Debug.Log("@@@@ : " + pathList);
                         }
                     }
                 }
@@ -117,15 +110,11 @@ namespace AStar
                     if (Vector3.Distance(_player.transform.position, targetPosition) < 0.001f)
                     {
                         var popNode = pathList.Pop();
-                        Debug.Log("### pathList.Pop() : " + popNode.position);
                     }
                 }
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         private void ClearNodes()
         {
             foreach (Node node in nodes)
@@ -145,8 +134,7 @@ namespace AStar
             {
                 for (int j = 0; j < numOfColumns; j++)
                 {
-                    Vector3 nodePosition = GetNodePosition(index);
-                    Node node = new Node(nodePosition, index);
+                    Node node = new Node(new Vector3(j, 0, i), index);
                     nodes[i, j] = node;
                     index++;
                 }
@@ -157,11 +145,8 @@ namespace AStar
             {
                 foreach (GameObject obstacle in obstacles)
                 {
-                    int nodeIndex = GetNodeIndex(obstacle.transform.position);
-                    int columnIndex = GetColumnIndex(nodeIndex);
-                    int rowIndex = GetRowIndex(nodeIndex);
-
-                    nodes[rowIndex, columnIndex].isObstacle = true;
+                    var obstablePositionIndexes = GetNodeIndex(obstacle.transform.position);
+                    nodes[obstablePositionIndexes.row, obstablePositionIndexes.column].isObstacle = true;
                 }
             }
         }
@@ -170,50 +155,35 @@ namespace AStar
         // 이동 가능한 Node인지 확인하여 반환
         public ArrayList GetAvailableNodes(Node node)
         {
+            (int rowAdder,int colAdder)[] indexAdder = { (1, 0), (-1, 0), (0, 1), (0, -1) };
+
             ArrayList resultList = new ArrayList();
             Vector3 nodePosition = node.position;
-            int nodeIndex = GetNodeIndex(nodePosition);
-            int rowIndex = GetRowIndex(nodeIndex);
-            int columnIndex = GetColumnIndex(nodeIndex);
+            var nodePositionIndex = GetNodeIndex(nodePosition);
+ 
             int nodeRowIndex;
             int nodeColumnIndex;
 
-            // 위
-            nodeRowIndex = rowIndex + 1;
-            nodeColumnIndex = columnIndex;
-            if (IsAvailableNode(nodeRowIndex, nodeColumnIndex))
+            foreach (var adder in indexAdder) 
             {
-                resultList.Add(nodes[nodeRowIndex, nodeColumnIndex]);
-            }
+                nodeRowIndex = nodePositionIndex.row + adder.rowAdder;
+                nodeColumnIndex = nodePositionIndex.column + adder.colAdder;
 
-            // 아래
-            nodeRowIndex = rowIndex - 1;
-            nodeColumnIndex = columnIndex;
-            if (IsAvailableNode(nodeRowIndex, nodeColumnIndex))
-            {
-                resultList.Add(nodes[nodeRowIndex, nodeColumnIndex]);
-            }
-
-            // 오른쪽
-            nodeRowIndex = rowIndex;
-            nodeColumnIndex = columnIndex + 1;
-            if (IsAvailableNode(nodeRowIndex, nodeColumnIndex))
-            {
-                resultList.Add(nodes[nodeRowIndex, nodeColumnIndex]);
-            }
-
-            // 왼쪽
-            nodeRowIndex = rowIndex;
-            nodeColumnIndex = columnIndex - 1;
-            if (IsAvailableNode(nodeRowIndex, nodeColumnIndex))
-            {
-                resultList.Add(nodes[nodeRowIndex, nodeColumnIndex]);
+                if (IsAvailableNode(nodeRowIndex, nodeColumnIndex))
+                {
+                    resultList.Add(nodes[nodeRowIndex, nodeColumnIndex]);
+                }
             }
 
             return resultList;
         }
 
-        // 주어진 Row, Column index가 유효한 Node인지 확인하는 함수
+        /// <summary>
+        /// 주어진 row, column이 유효한지 확인하는 함수
+        /// </summary>
+        /// <param name="rowIndex"></param>
+        /// <param name="columnIndex"></param>
+        /// <returns></returns>
         private bool IsAvailableNode(int rowIndex, int columnIndex)
         {
             // 해당 row, column이 유효하지 않으면 false
@@ -245,7 +215,12 @@ namespace AStar
             return false;
         }
 
-        // 주어진 row, column index가 유효한지 확인하는 함수
+        /// <summary>
+        /// 주어진 row, column index가 유효한지 확인하는 함수
+        /// </summary>
+        /// <param name="rowIndex"></param>
+        /// <param name="columnIndex"></param>
+        /// <returns></returns>
         private bool IsAvailableIndex(int rowIndex, int columnIndex)
         {
             if (rowIndex > -1 && columnIndex > -1 &&
@@ -256,47 +231,12 @@ namespace AStar
             return false;
         }
 
-        private Vector3 GetNodePosition(int index)
+        private (int row, int column) GetNodeIndex(Vector3 position)
         {
-            int rowIndex = GetRowIndex(index);
-            int columnIndex = GetColumnIndex(index);
-
-            float xPosition = columnIndex * cellSize;
-            float zPosition = rowIndex * cellSize;
-
-            return new Vector3(xPosition, 0f, zPosition);
-        }
-
-        /// <summary>
-        /// 주어진 위치의 Node index를 반환하는 함수
-        /// 예를 들어 x가 3, z가 5인 위치의 Node index는 53이다.
-        /// 5 * 10 + 3 = 53
-        /// </summary>
-        /// <param name="position"></param>
-        /// <returns></returns>
-        private int GetNodeIndex(Vector3 position)
-        {
-            if (!IsAvailablePosition(position))
-            {
-                return -1;
-            }
-
             int columnIndex = (int)Mathf.Round(position.x) / cellSize;
             int rowIndex = (int)Math.Round(position.z) / cellSize;
 
-            return (rowIndex * numOfColumns + columnIndex);
-        }
-
-        private int GetRowIndex(int nodeIndex)
-        {
-            int rowIndex = nodeIndex / numOfColumns;
-            return rowIndex;
-        }
-
-        private int GetColumnIndex(int nodeIndex)
-        {
-            int columnIndex = nodeIndex % numOfColumns;
-            return columnIndex;
+            return (rowIndex, columnIndex);
         }
     }
 }

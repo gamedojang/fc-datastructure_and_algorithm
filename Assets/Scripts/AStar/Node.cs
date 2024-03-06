@@ -5,7 +5,7 @@ namespace AStar
 {
     public class Node : IComparable
     {
-        public float FScore
+        public float FScore             // F = G + H
         {
             get
             {
@@ -15,8 +15,8 @@ namespace AStar
 
         public int index;
 
-        public float hScore;            // 노드까지의 예상 거리 값
-        public float gScore;            // 출발 노드로부터의 실제 거리 값
+        public float hScore;            // 현재 노드에서 목표 노드까지의 예상 거리 값
+        public float gScore;            // 출발 노드에서 현재 노드까지의 실제 거리 값
         public Node parent;             // 부모 노드
 
         public Vector3 position;        // 위치 정보
