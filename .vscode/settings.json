@@ -51,5 +51,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "fc-datastructure_and_algorithm.sln"
+    "dotnet.defaultSolution": "fc-datastructure_and_algorithm.sln",
+    "dotnet.preferCSharpExtension": true
 }

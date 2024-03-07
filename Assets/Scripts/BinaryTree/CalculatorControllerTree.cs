@@ -6,9 +6,9 @@ public class CalculatorControllerTree : MonoBehaviour
 {
     [SerializeField] private TMP_Text lcdText;
 
-    private Stack<BinaryTreeNode> expression = new Stack<BinaryTreeNode>();
+    private Stack<BinaryTreeNode<string>> expression = new Stack<BinaryTreeNode<string>>();
 
-    private Stack<BinaryTreeNode> operatorList = new Stack<BinaryTreeNode>();
+    private Stack<BinaryTreeNode<string>> operatorList = new Stack<BinaryTreeNode<string>>();
     
     private string inputValue = "";
 
@@ -27,7 +27,7 @@ public class CalculatorControllerTree : MonoBehaviour
         }
     }
 
-    private float CalculateTree(BinaryTreeNode treeNode)
+    private float CalculateTree(BinaryTreeNode<string> treeNode)
     {
         if (treeNode.LeftNode == null && treeNode.RightNode == null)
         {
@@ -127,7 +127,7 @@ public class CalculatorControllerTree : MonoBehaviour
             case "%":
                 if (inputValue == "") break;
                 
-                BinaryTreeNode node = new BinaryTreeNode(inputValue);
+                BinaryTreeNode<string> node = new BinaryTreeNode<string>(inputValue);
                 expression.Push(node);
                 inputValue = "";
                 lcdText.text += buttonValue;
@@ -140,7 +140,7 @@ public class CalculatorControllerTree : MonoBehaviour
                     // 새로운 연산자가 우선 순위가 높으면
                     if (GetOprPriority(lastOprator.Value) <= GetOprPriority(buttonValue))
                     {
-                        operatorList.Push(new BinaryTreeNode(buttonValue));
+                        operatorList.Push(new BinaryTreeNode<string>(buttonValue));
                     }
                     else
                     {
@@ -153,18 +153,18 @@ public class CalculatorControllerTree : MonoBehaviour
 
                             expression.Push(lastOperatorNode);
                         }
-                        operatorList.Push(new BinaryTreeNode(buttonValue));
+                        operatorList.Push(new BinaryTreeNode<string>(buttonValue));
                     }  
                 }
                 else
                 {
-                    operatorList.Push(new BinaryTreeNode(buttonValue));
+                    operatorList.Push(new BinaryTreeNode<string>(buttonValue));
                 }
                 break;
             case "=":
                 if (inputValue == "") break;
                 
-                expression.Push(new BinaryTreeNode(inputValue));
+                expression.Push(new BinaryTreeNode<string>(inputValue));
                 inputValue = "";
                 
                 while (operatorList.Count > 0)
@@ -187,7 +187,7 @@ public class CalculatorControllerTree : MonoBehaviour
                 break;
             case "ac":
                 expression.Clear();
-                operatorList = new Stack<BinaryTreeNode>();
+                operatorList = new Stack<BinaryTreeNode<string>>();
                 inputValue = "";
                 lcdText.text = "";
                 break;
