@@ -1412,8 +1412,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: LinkedList.LinkedListController, Assembly-CSharp
+      - m_Target: {fileID: 862237788}
+        m_TargetAssemblyTypeName: PriorityQueue.PriorityQueueController, Assembly-CSharp
         m_MethodName: ShowAddPanel
         m_Mode: 1
         m_Arguments:

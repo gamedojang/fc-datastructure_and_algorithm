@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using LinkedList;
+using Unity.VisualScripting;
 
 namespace PriorityQueue
 {
@@ -18,39 +19,38 @@ namespace PriorityQueue
 
         private List<GameObject> cellObjectList = new List<GameObject>();
 
-        PriorityQueue<Person2> _personPriorityQueue = new PriorityQueue<Person2>();
+        private LinkedList<Person> _personLinkedList = new LinkedList<Person>(new Person[]
+        {
+            new Person("홍길동", 23, Person.GenderType.Male, "프로그래머"),
+            new Person("김민기", 23, Person.GenderType.Male, "아티스트"),
+            new Person("최민희", 23, Person.GenderType.Female, "아티스트"),
+            new Person("박수영", 23, Person.GenderType.Female, "프로그래머"),
+            new Person("김민수", 23, Person.GenderType.Male, "기획자")
+        });
 
         private void Start()
         {
-            _personPriorityQueue.Enqueue(new Person2("홍길동", 23, Person2.GenderType.Male, "프로그래머"));
-            _personPriorityQueue.Enqueue(new Person2("김민기", 24, Person2.GenderType.Male, "프로그래머"));
-            _personPriorityQueue.Enqueue(new Person2("최민희", 33, Person2.GenderType.Female, "아티스트"));
-            _personPriorityQueue.Enqueue(new Person2("박수영", 31, Person2.GenderType.Female, "아티스트"));
-            _personPriorityQueue.Enqueue(new Person2("김민수", 27, Person2.GenderType.Male, "기획자"));
-            _personPriorityQueue.Enqueue(new Person2("홍금보", 23, Person2.GenderType.Male, "프로그래머"));
-            _personPriorityQueue.Enqueue(new Person2("타조", 23, Person2.GenderType.Male, "프로그래머"));
-
             ReloadData();
         }
 
         public void Add(Person person)
         {
-            //_personPriorityQueue.Enqueue(person);
+            _personLinkedList.AddFirst(person);
         }
 
         public void Remove(Person person)
         {
-            //_personLinkedList2.Remove(person);
+            _personLinkedList.Remove(person);
         }
 
         public void ShowAddPanel()
         {
-            //var addPanelObject = Instantiate(addPanel, panelParent);
-            //addPanelObject.GetComponent<AddPanelController>().addPanelDelegate = person =>
-            //{
-            //    Add(person);
-            //    ReloadData();
-            //};
+            var addPanelObject = Instantiate(addPanel, panelParent);
+            addPanelObject.GetComponent<AddPanelController>().addPanelDelegate = person =>
+            {
+                Add(person);
+                ReloadData();
+            };
         }
 
         public void ReloadData()
@@ -60,19 +60,23 @@ namespace PriorityQueue
                 Destroy(cellObject);
             }
 
-            int index = 0;
-
-            while (_personPriorityQueue.Count > 0)
+            PriorityQueue<Person> priorityQueue = new PriorityQueue<Person>();
+            foreach (Person person in _personLinkedList)
             {
-                Person2 person = _personPriorityQueue.Dequeue();
+                priorityQueue.Enqueue(person);
+            }
+
+            while (priorityQueue.Count > 0)
+            {
+                Person person = priorityQueue.Dequeue();
                 GameObject cell = Instantiate(cellPrefab, scrollViewParent);
                 cellObjectList.Add(cell);
 
                 SubtitleCellController subtitleCellController = cell.GetComponent<SubtitleCellController>();
 
                 subtitleCellController.Title.text = person.Name;
+
                 subtitleCellController.SubTitle.text = person.Job;
-                subtitleCellController.Index = index++;
 
                 subtitleCellController.openDetailPanelDelegate = i =>
                 {
@@ -85,7 +89,7 @@ namespace PriorityQueue
                         ReloadData();
                     };
                 };
-            }   
+            }
         }
 
         public override void OpenConfirmPopup(string message, ConfirmPopupController.ConfirmPopupDelegate confirmPopupDelegate)

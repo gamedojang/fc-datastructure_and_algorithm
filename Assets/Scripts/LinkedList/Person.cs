@@ -27,17 +27,20 @@ namespace LinkedList
         }
         public int CompareTo(Person other)
         {
-            if ((Name == other.Name) &&
-                (Age == other.Age) &&
-                (Gender == other.Gender) &&
-                (Job == other.Job))
-            {
-                return 0;
-            }
-            else
-            {
-                return -1;
-            }
+            return Name.CompareTo(other.Name);
+
+            //if ((Name == other.Name) &&
+            //    (Age == other.Age) &&
+            //    (Gender == other.Gender) &&
+            //    (Job == other.Job))
+            //{
+            //    return 0;
+            //}
+            //else
+            //{
+            //    return -1;
+            //}
+
         }
     }
 }
