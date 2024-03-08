@@ -1,3 +1,4 @@
+using LinkedList;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,9 +10,9 @@ namespace LinkedList
     {
         public enum GenderType
         {
-            Male, Female        
+            Male, Female
         }
-    
+
         public string Name;
         public int Age;
         public GenderType Gender;
