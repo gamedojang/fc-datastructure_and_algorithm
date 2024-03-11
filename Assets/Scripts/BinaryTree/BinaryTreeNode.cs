@@ -3,14 +3,20 @@ using System;
 using JetBrains.Annotations;
 using UnityEngine;
 
-public class BinaryTreeNode<T>
+namespace BinaryTree
 {
-    public T Value { get; set; }
-    public BinaryTreeNode<T> LeftNode { get; set; }
-    public BinaryTreeNode<T> RightNode { get; set; }
-
-    public BinaryTreeNode(T value)
+    public class BinaryTreeNode<T>
     {
-        Value = value;
+        public T Value { get; set; }
+        public BinaryTreeNode<T> LeftNode { get; set; }
+        public BinaryTreeNode<T> RightNode { get; set; }
+        public int Height { get; set; }     // AVL
+
+        public BinaryTreeNode(T value)
+        {
+            Value = value;
+            Height = 1;     // AVL
+        }
     }
+
 }
