@@ -1096,7 +1096,7 @@ GameObject:
   - component: {fileID: 862237786}
   - component: {fileID: 862237788}
   m_Layer: 0
-  m_Name: LinkedList Controller
+  m_Name: Priority Queue Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
